@@ -1,4 +1,4 @@
-import { MongoClient, ServerApiVersion } from'mongodb'
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const uri = "mongodb+srv://liliacheh:vW4PV1ZWCcpHSybR@cluster0.squljoe.mongodb.net/?retryWrites=true&w=majority";
 
@@ -12,11 +12,19 @@ const client = new MongoClient(uri, {
 });
 
 async function run() {
+  const product = {
+    name: 'NFT1',
+    artNum: 300125125,
+    price: 300
+  }
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
+    // await client.db("admin").command({ ping: 1 });
+    const db = await client.db('products')
+    const productsCollection = await db.collection('productsList')
+    const newProduct = await productsCollection.insertOne(product)
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
