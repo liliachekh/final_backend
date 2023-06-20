@@ -1,4 +1,10 @@
 const express = require('express');
+const cors=require("cors");
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -26,7 +32,7 @@ const partners = require('./routes/partners');
 // const mainRoute = require('./routes/index');
 
 const app = express();
-
+app.use(cors(corsOptions))
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
