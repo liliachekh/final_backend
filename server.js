@@ -1,5 +1,4 @@
 const express = require('express');
-const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -46,7 +45,7 @@ app.use(passport.initialize());
 
 // Passport Config
 require('./config/passport')(passport);
-app.use(cors());
+
 // Use Routes
 app.use('/api/configs', globalConfigs);
 app.use('/api/customers', customers);
@@ -77,9 +76,7 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
-//const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4000;
 
-//app.listen(port, () => console.log(`Server running on port ${port}`));
-app.listen(3000, () => {
-  console.log('Server running on port 3000');
-});
+app.listen(port, () => console.log(`Server running on port ${port}`));
+
