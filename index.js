@@ -32,7 +32,7 @@ const partners = require('./routes/partners');
 // const mainRoute = require('./routes/index');
 
 const app = express();
-app.use(cors(corsOptions))
+app.use(cors())
 // Body parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
