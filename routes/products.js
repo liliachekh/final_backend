@@ -22,11 +22,15 @@ const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     // var newDestination = req.headers.path; // We sen image url in header ("path"), when making axios request
     // fse.mkdirsSync(newDestination); // We creating folder in destination, specified in headers "path"
-    cb(null, getUploadedImagesPath()); // Saving file
+    cb((error) => {
+      console.log(error);
+    }, getUploadedImagesPath()); // Saving file
   },
 
   filename: function (req, file, cb) {
-    cb(null, file.originalname); // We accept original file-name
+    cb((error) => {
+      console.log(error);
+    }, file.originalname); // We accept original file-name
   },
 });
 
