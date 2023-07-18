@@ -31,6 +31,8 @@ const paymentMethods = require("./routes/paymentMethods");
 const partners = require("./routes/partners");
 // const mainRoute = require('./routes/index');
 const { getStaticFilesPath } = require("./utils");
+const mintProducts = require("./routes/mintProducts");
+
 
 const app = express();
 app.use(cors());
@@ -72,6 +74,8 @@ app.use("/api/comments", comments);
 app.use("/api/shipping-methods", shippingMethods);
 app.use("/api/payment-methods", paymentMethods);
 app.use("/api/partners", partners);
+app.use("/api/mintProducts", mintProducts);
+
 // app.use('/', mainRoute);
 
 // Server static assets if in production
