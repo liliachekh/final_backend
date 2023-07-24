@@ -1,16 +1,6 @@
 const express = require("express");
 const cookieParser = require('cookie-parser');
-app.use(cookieParser());
 
-app.get('/set-cookie', (req, res) => {
-  
-  res.cookie('cookieName', 'cookieValue', {
-    sameSite: 'none',
-    secure: true
-  });
-
-  res.send('Cookie SameSite=None and Secure');
-});
 const cors = require("cors");
 const corsOptions = {
   origin: "*",
@@ -52,6 +42,18 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+//cookies 
+app.use(cookieParser());
+
+app.get('/set-cookie', (req, res) => {
+  
+  res.cookie('cookieName', 'cookieValue', {
+    sameSite: 'none',
+    secure: true
+  });
+
+  res.send('Cookie SameSite=None and Secure');
+});
 // DB Config
 const db = require("./config/keys").mongoURI;
 
