@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 const multer = require("multer"); // multer for parsing multipart form data (files)
 const fse = require("fs-extra");
+const { getUploadedImagesPath } = require("../utils");
 
 //Import controllers
 const {
@@ -12,21 +13,25 @@ const {
   getProducts,
   getProductById,
   getProductsFilterParams,
-  searchProducts
+  searchProducts,
 } = require("../controllers/products");
 
 // Configurations for multer
 const storage = multer.diskStorage({
   // Destination, where files should be stored (image url)
-  destination: function(req, file, cb) {
-    var newDestination = req.headers.path; // We sen image url in header ("path"), when making axios request
-    fse.mkdirsSync(newDestination); // We creating folder in destination, specified in headers "path"
-    cb(null, newDestination); // Saving file
+  destination: function (req, file, cb) {
+    // var newDestination = req.headers.path; // We sen image url in header ("path"), when making axios request
+    // fse.mkdirsSync(newDestination); // We creating folder in destination, specified in headers "path"
+    cb((error) => {
+      console.log(error);
+    }, getUploadedImagesPath()); // Saving file
   },
 
-  filename: function(req, file, cb) {
-    cb(null, file.originalname); // We accept original file-name
-  }
+  filename: function (req, file, cb) {
+    cb((error) => {
+      console.log(error);
+    }, file.originalname); // We accept original file-name
+  },
 });
 
 const fileFilter = (req, file, cb) => {
@@ -46,9 +51,9 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 1024 * 1024 * 3 // Max size 5MB
+    fileSize: 1024 * 1024 * 3, // Max size 5MB
   },
-  fileFilter: fileFilter
+  fileFilter: fileFilter,
 });
 
 // @route   POST /products/images
