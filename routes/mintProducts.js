@@ -9,6 +9,7 @@ const {
     addMintProduct,
     getMintProducts,
     getMintProductById,
+    updateMintProduct
   } = require("../controllers/mintProducts");
 
   router.post(
@@ -20,6 +21,12 @@ const {
   router.get("/", getMintProducts);
 
   router.get("/:itemNo", getMintProductById);
+
+  router.put(
+    "/:id",
+    passport.authenticate("jwt-admin", { session: false }),
+    updateMintProduct
+  );
 
 module.exports = router;
 
